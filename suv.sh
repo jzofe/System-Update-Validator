@@ -83,17 +83,17 @@ disk_size_without_unit=$(echo $disk_size | tr -d 'MGmg')
 dd if=/dev/zero of=virtual_disk.img bs=1M count=0 seek=$disk_size_without_unit
 loop_device=$(sudo losetup -fP virtual_disk.img --show)
 sudo mkfs.ext4 $loop_device
-sudo mkdir -p /mnt/virtual_disk
-sudo mount $loop_device /mnt/virtual_disk
+sudo mkdir -p /mnt/suv_virtual
+sudo mount $loop_device /mnt/suv_virtual
 
 if $ubuntu_mode; then
-    sudo pacstrap /mnt/virtual_disk base
+    sudo pacstrap /mnt/suv_virtual base
 elif $debian_mode; then
-    sudo debootstrap stable /mnt/virtual_disk
+    sudo debootstrap stable /mnt/suv_virtual
 elif $centos_mode; then
-    sudo debootstrap centos /mnt/virtual_disk
+    sudo debootstrap centos /mnt/suv_virtual
 else
-    sudo pacstrap /mnt/virtual_disk base
+    sudo pacstrap /mnt/suv_virtual base
 fi
 
 echo -e "\e[1mVirtual disk created.\e[0m"
@@ -104,22 +104,22 @@ for i in {1..5}; do
     echo -n "."
 done
 
-echosudo mount -t proc /proc /mnt/virtual_disk/proc
-sudo mount --rbind /sys /mnt/virtual_disk/sys
-sudo mount --rbind /dev /mnt/virtual_disk/dev
+echosudo mount -t proc /proc /mnt/suv_virtual/proc
+sudo mount --rbind /sys /mnt/suv_virtual/sys
+sudo mount --rbind /dev /mnt/suv_virtual/dev
 
 if $ubuntu_mode || $debian_mode || $centos_mode; then
-    sudo chroot /mnt/virtual_disk
-    sudo chroot /mnt/virtual_disk sudo apt-get update -y
-    sudo chroot /mnt/virtual_disk sudo apt-get install aircrack-ng -y
+    sudo chroot /mnt/suv_virtual
+    sudo chroot /mnt/suv_virtual sudo apt-get update -y
+    sudo chroot /mnt/suv_virtual sudo apt-get install aircrack-ng -y
     if $centos_mode; then
-        sudo chroot /mnt/virtual_disk yum update -y
-        sudo chroot /mnt/virtual_disk yum install aircrack-ng -y
+        sudo chroot /mnt/suv_virtual yum update -y
+        sudo chroot /mnt/suv_virtual yum install aircrack-ng -y
     fi
 else
-    sudo arch-chroot /mnt/virtual_disk
-    sudo arch-chroot /mnt/virtual_disk /bin/bash -c "pacman -Sy --noconfirm"
-    sudo arch-chroot /mnt/virtual_disk /bin/bash -c "pacman -S --noconfirm aircrack-ng"
+    sudo arch-chroot /mnt/suv_virtual
+    sudo arch-chroot /mnt/suv_virtual /bin/bash -c "pacman -Sy --noconfirm"
+    sudo arch-chroot /mnt/suv_virtual /bin/bash -c "pacman -S --noconfirm aircrack-ng"
 fi
 
 if [ $? -eq 0 ]; then
@@ -129,9 +129,9 @@ if [ $? -eq 0 ]; then
     read -p "Would you like to download the update? (y/n): " download_choice
     if [ "$download_choice" == "Y" ] || [ "$download_choice" == "y" ]; then
         if $ubuntu_mode || $debian_mode || $centos_mode; then
-            sudo chroot /mnt/virtual_disk sudo apt-get upgrade -y
+            sudo chroot /mnt/suv_virtual sudo apt-get upgrade -y
             if $centos_mode; then
-                sudo chroot /mnt/virtual_disk yum update -y
+                sudo chroot /mnt/suv_virtual yum update -y
             fi
         else
             sudo pacman -Syu --noconfirm
@@ -154,5 +154,5 @@ else
     echo
 fi
 
-sudo umount /mnt/virtual_disk
+sudo umount /mnt/suv_virtual
 sudo losetup -d $loop_device
