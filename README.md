@@ -14,12 +14,15 @@ Has there been an update to your Linux operating system? Check whether the incom
 
 WARNING : Default os Arch-Linux
 
-```
+```shell
 sudo suv.sh #Arch
-
+```
+```shell
 sudo suv.sh --ubuntu #Ubuntu
-
+```
+```shell
 sudo suv.sh --debian #Debian
-
+```
+```shell
 sudo suv.sh --centos #Centos
 ```
