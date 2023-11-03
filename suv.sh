@@ -118,8 +118,8 @@ if $ubuntu_mode || $debian_mode || $centos_mode; then
     fi
 else
     sudo arch-chroot /mnt/suv_virtual
-    sudo arch-chroot /mnt/suv_virtual usr/bin/bash -c "pacman -Sy --noconfirm"
-    sudo arch-chroot /mnt/suv_virtual usr/bin/bash -c "pacman -S --noconfirm aircrack-ng"
+    sudo arch-chroot /mnt/suv_virtual /usr/bin/bash -c "pacman -Sy --noconfirm"
+    sudo arch-chroot /mnt/suv_virtual /usr/bin/bash -c "pacman -S --noconfirm aircrack-ng"
 fi
 
 if [ $? -eq 0 ]; then
