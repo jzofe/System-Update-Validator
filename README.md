@@ -1,6 +1,6 @@
 # :penguin: System Update Validator - SUV | Ender Project
 
-! This script is an ENDER project
+! This script is an ENDER project 
 
 Check if the new update really works! All Linux distros!
 
@@ -26,3 +26,6 @@ sudo suv.sh --debian #Debian
 ```shell
 sudo suv.sh --centos #Centos
 ```
+
+
+Coded By Fyks / scriptkidsensei
