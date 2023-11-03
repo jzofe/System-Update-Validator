@@ -1,5 +1,7 @@
 # :penguin: System Update Validator - SUV | Ender Project
 
+open-source
+
 ! This script is an ENDER project 
 
 Check if the new update really works! All Linux distros!
