@@ -27,5 +27,18 @@ sudo suv.sh --debian #Debian
 sudo suv.sh --centos #Centos
 ```
 
+Help Command (-h)
+
+```shell
+
+    echo "Create a virtual disk and test the update."
+    echo
+    echo "Options:"
+    echo " -s <SIZE> Specify the virtual disk size (for example, 2G, 1024M). Default: 300M."
+    echo " --ubuntu Use Ubuntu package manager"
+    echo " --debian Use Debian package manager"
+    echo " --centos Use CentOS package manager (yum)."
+    echo " -h View help."
+```
 
 Coded By Fyks / scriptkidsensei
